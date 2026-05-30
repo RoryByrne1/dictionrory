@@ -1,0 +1,23 @@
+{
+  "manifest_version": 3,
+  "name": "dictionrory",
+  "version": "1.0",
+
+  "description": "rory's dictionary extension",
+
+  "browser_specific_settings": {
+    "gecko": {
+      "id": "dictionrory@rorybyrne.com",
+      "data_collection_permissions": {
+        "required": ["none"]
+      }
+    }
+  },
+
+  "content_scripts": [
+    {
+      "matches": ["*://*.mozilla.org/*"],
+      "js": ["borderify.js"]
+    }
+  ]
+}
