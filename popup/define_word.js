@@ -33,7 +33,7 @@ const createDetailsDropdown = (label, values) => {
   return details;
 };
 
-const renderDefinition = (entry) => {
+const buildEntryFragment = (entry) => {
   const pronunciation = entry.phonetic || entry.phonetics?.find((phonetic) => phonetic.text)?.text || '';
   const meanings = entry.meanings ?? [];
 
@@ -101,6 +101,24 @@ const renderDefinition = (entry) => {
 
     fragment.append(meaningSection);
   });
+
+  return fragment;
+};
+
+// Render an array of API entries into the result area
+const renderEntries = (entries) => {
+  const fragment = document.createDocumentFragment();
+
+  entries.forEach((entry, index) => {
+    if (index > 0) {
+      const hr = document.createElement('hr');
+      hr.className = 'entry-separator';
+      fragment.append(hr);
+    }
+
+    fragment.append(buildEntryFragment(entry));
+  });
+
   result.replaceChildren(fragment);
   errorContent.classList.add('hidden');
 };
@@ -133,7 +151,11 @@ const fetchDictionaryData = async (word) => {
     }
 
     const data = await response.json();
-    renderDefinition(Array.isArray(data) ? data[0] : data);
+    if (Array.isArray(data) && data.length > 1) {
+      renderEntries(data);
+    } else {
+      renderEntries([Array.isArray(data) ? data[0] : data]);
+    }
   } catch (error) {
     console.error('Fetch error:', error);
     renderError('could not fetch a definition');

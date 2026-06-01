@@ -54,6 +54,10 @@ button {
   border-top: 1px solid rgba(31, 41, 55, 0.1);
 }
 
+.entry-separator {
+  margin: 20px 0;
+}
+
 .definition-item {
   margin-bottom: 10px;
 }
@@ -80,8 +84,7 @@ button {
 
 .details-row summary {
   cursor: pointer;
-  font-size: 0.85rem;
-  font-weight: 700;
+  font-size: 0.9rem;
 }
 
 .details-row ul {
