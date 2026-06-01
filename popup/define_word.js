@@ -105,7 +105,6 @@ const buildEntryFragment = (entry) => {
   return fragment;
 };
 
-// Render an array of API entries into the result area
 const renderEntries = (entries) => {
   const fragment = document.createDocumentFragment();
 
@@ -134,7 +133,7 @@ const fetchDictionaryData = async (word) => {
   result.replaceChildren();
   const loading = document.createElement('p');
   loading.className = 'meta';
-  loading.textContent = 'Looking up definition...';
+  loading.textContent = 'looking up definition...';
   result.append(loading);
   errorContent.classList.add('hidden');
 
