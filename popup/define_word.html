@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link href="https://fonts.googleapis.com/css2?family=Roboto&family=Roboto+Mono&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="define_word.css" />
+  </head>
+  <body>
+    <div id="popup-content">
+      <form id="lookup-form">
+        <div class="input-row">
+          <input type="text" id="word" name="word" placeholder="enter word" autocomplete="off" required />
+          <button type="submit">define</button>
+        </div>
+      </form>
+
+      <section id="result" class="result" aria-live="polite"></section>
+    </div>
+
+    <div id="error-content" class="hidden">
+      <p id="error-message"></p>
+    </div>
+
+    <script src="define_word.js"></script>
+  </body>
+</html>

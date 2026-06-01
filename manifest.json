@@ -5,6 +5,10 @@
 
   "description": "rory's dictionary extension",
 
+  "host_permissions": [
+    "https://api.dictionaryapi.dev/*"
+  ],
+
   "browser_specific_settings": {
     "gecko": {
       "id": "dictionrory@rorybyrne.com",
@@ -14,10 +18,8 @@
     }
   },
 
-  "content_scripts": [
-    {
-      "matches": ["*://*.mozilla.org/*"],
-      "js": ["borderify.js"]
-    }
-  ]
+  "action": {
+    "default_title": "dictionrory",
+    "default_popup": "popup/define_word.html"
+  }
 }
