@@ -5,6 +5,10 @@
 
   "description": "rory's dictionary extension",
 
+  "icons": {
+    "48": "icons/icon-48.png"
+  },
+
   "host_permissions": [
     "https://api.dictionaryapi.dev/*"
   ],
@@ -19,6 +23,14 @@
   },
 
   "action": {
+    "default_icon": "icons/icon-32.png",
+    "theme_icons": [
+      {
+        "light": "icons/icon-32-light.png",
+        "dark": "icons/icon-32.png",
+        "size": 32
+      }
+    ],
     "default_title": "dictionrory",
     "default_popup": "popup/define_word.html"
   }
