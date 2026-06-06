@@ -92,6 +92,11 @@ button {
   padding-left: 18px;
 }
 
+.details-row li:hover {
+  cursor: pointer;
+  text-decoration: underline;
+}
+
 .result .meta {
   margin: 0 0 8px;
   color: #6b7280;

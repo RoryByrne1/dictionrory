@@ -26,6 +26,10 @@ const createDetailsDropdown = (label, values) => {
   uniqueValues.forEach((value) => {
     const item = document.createElement('li');
     item.textContent = value;
+    item.onclick = () => {
+      wordInput.value = item.textContent;
+      fetchDictionaryData(wordInput.value); // could also do form.requestSubmit()
+    };
     listElement.append(item);
   });
 
