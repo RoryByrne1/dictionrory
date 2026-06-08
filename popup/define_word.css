@@ -111,3 +111,11 @@ button {
 .hidden {
   display: none;
 }
+
+.result:empty {
+  display: none;
+}
+
+.error-wrapper p {
+  margin-bottom: 0;
+}

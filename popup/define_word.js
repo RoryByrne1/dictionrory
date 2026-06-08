@@ -6,12 +6,16 @@ const errorContent = document.getElementById('error-content');
 const errorMessage = document.getElementById('error-message');
 
 const backStack = []
-let current = null;
+let current = "";
 
 const renderError = (message) => {
   result.replaceChildren();
   errorMessage.textContent = message;
-  errorContent.classList.remove('hidden');
+  if (message) {
+    errorContent.classList.remove('hidden');
+  } else {
+    errorContent.classList.add('hidden');
+  }
 };
 
 const createDetailsDropdown = (label, values) => {
@@ -130,16 +134,16 @@ const renderEntries = (entries) => {
   errorContent.classList.add('hidden');
 };
 
-const fetchDictionaryData = async (word, pushStack = true) => {  
-  if (pushStack) {
+const fetchDictionaryData = async (word, pushStack = true) => {
+  if (pushStack && word != current) {
     backStack.push(current);
     back.classList.remove('hidden');
   }
 
   current = word;
-  
+
   if (word == null) {
-    renderError('enter a word');
+    renderError(null);
     return;
   }
 
