@@ -1,8 +1,12 @@
 const form = document.getElementById('lookup-form');
 const wordInput = document.getElementById('word');
+const back = document.getElementById('back');
 const result = document.getElementById('result');
 const errorContent = document.getElementById('error-content');
 const errorMessage = document.getElementById('error-message');
+
+const backStack = []
+let current = null;
 
 const renderError = (message) => {
   result.replaceChildren();
@@ -126,11 +130,23 @@ const renderEntries = (entries) => {
   errorContent.classList.add('hidden');
 };
 
-const fetchDictionaryData = async (word) => {
+const fetchDictionaryData = async (word, pushStack = true) => {  
+  if (pushStack) {
+    backStack.push(current);
+    back.classList.remove('hidden');
+  }
+
+  current = word;
+  
+  if (word == null) {
+    renderError('enter a word');
+    return;
+  }
+
   const trimmedWord = word.trim();
 
   if (!trimmedWord) {
-    renderError('Enter a word to look up.');
+    renderError('enter a word');
     return;
   }
 
@@ -169,5 +185,14 @@ form.addEventListener('submit', (event) => {
   event.preventDefault();
   fetchDictionaryData(wordInput.value);
 });
+
+back.onclick = () => {
+  let last = backStack.pop();
+  if (backStack.length == 0) {
+    back.classList.add('hidden');
+  }
+  wordInput.value = last;
+  fetchDictionaryData(last, false);
+}
 
 wordInput.focus();
