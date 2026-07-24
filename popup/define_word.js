@@ -162,18 +162,25 @@ const fetchDictionaryData = async (word, pushStack = true) => {
   errorContent.classList.add('hidden');
 
   try {
-    const response = await fetch(`https://api.dictionaryapi.dev/api/v2/entries/en/${encodeURIComponent(trimmedWord)}`);
+    var data;
 
-    if (!response.ok) {
-      if (response.status === 404) {
-        renderError(`no definition found for '${trimmedWord}'`);
-        return;
+    if (trimmedWord != "dictionrory") {
+      const response = await fetch(`https://api.dictionaryapi.dev/api/v2/entries/en/${encodeURIComponent(trimmedWord)}`);
+
+      if (!response.ok) {
+        if (response.status === 404) {
+          renderError(`no definition found for '${trimmedWord}'`);
+          return;
+        }
+
+        throw new Error(`HTTP error, status: ${response.status}`);
       }
-
-      throw new Error(`HTTP error, status: ${response.status}`);
+      data = await response.json();
+    } else {
+      data = [{"word":"dictionrory","phonetic":"/ˌdɪkʃənˈɹɔːɹi/",
+        "meanings":[{"partOfSpeech":"noun","definitions":[{"definition":"a simple English dictionary extension "}]}]}];
     }
 
-    const data = await response.json();
     if (Array.isArray(data) && data.length > 1) {
       renderEntries(data);
     } else {
@@ -198,5 +205,15 @@ back.onclick = () => {
   wordInput.value = last;
   fetchDictionaryData(last, false);
 }
+
+const api = typeof browser !== "undefined" ? browser : chrome;
+
+api.storage.local.get("selectedWord").then((result) => {
+  if (result.selectedWord) {
+    wordInput.value = result.selectedWord;
+    fetchDictionaryData(result.selectedWord);
+    api.storage.local.remove("selectedWord");
+  }
+});
 
 wordInput.focus();
